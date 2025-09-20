@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Get Key</title>
+  <style>
+    * { box-sizing: border-box; margin:0; padding:0; font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif; }
+    body {
+      min-height:100vh;
+      background: radial-gradient(1000px 600px at 10% 10%, rgba(120,50,170,0.08), transparent),
+                  linear-gradient(180deg,#0b0410 0%, #130617 100%);
+      display:flex; align-items:center; justify-content:center;
+      padding:24px; color:#f0ecf6;
+    }
+
+    .card {
+      width:420px;
+      max-width:95%;
+      background: linear-gradient(180deg, rgba(32,18,40,0.95), rgba(18,8,30,0.95));
+      border-radius:18px;
+      padding:26px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+      border: 1px solid rgba(200,170,255,0.03);
+    }
+
+    .features { gap:12px; display:flex; flex-direction:column; margin-bottom:18px; }
+    .feature {
+      background: rgba(255,255,255,0.02);
+      padding:12px 14px;
+      border-radius:12px;
+      color:#eae5ee;
+      font-weight:600;
+    }
+    .feature small { display:block; font-weight:400; color:#bfb7c7; margin-top:6px; font-size:13px; }
+
+    .stats { display:flex; gap:12px; margin:18px 0 22px; flex-wrap:wrap; }
+    .stat {
+      width:160px; background: rgba(0,0,0,0.12); padding:10px; border-radius:10px;
+    }
+    .stat .t { font-size:12px; color:#bdb4cf; }
+    .stat .v { font-weight:700; font-size:16px; margin-top:6px; }
+
+    .bigbtn {
+      width:100%;
+      display:block;
+      text-align:center;
+      padding:14px;
+      font-weight:800;
+      border-radius:12px;
+      background: linear-gradient(90deg,#8a42ff,#b86cff);
+      color:white;
+      border:none;
+      cursor:pointer;
+      font-size:16px;
+    }
+
+    .hint { margin-top:10px; font-size:13px; color:#cfc7d9; text-align:center; }
+
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="features">
+      <div class="feature">Invisible <small>Temporary cloak</small></div>
+      <div class="feature">Infinite Jump <small>Extended jumps</small></div>
+      <div class="feature">Semi Wallhack <small>Partial visibility</small></div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="t">Script Status</div><div class="v">Online</div></div>
+      <div class="stat"><div class="t">Key Server</div><div class="v">Online</div></div>
+      <div class="stat"><div class="t">Players</div><div class="v">123</div></div>
+      <div class="stat"><div class="t">Clicks</div><div class="v" id="clicks">0</div></div>
+    </div>
+
+    <button id="trialBtn" class="bigbtn">GET KEY</button>
+
+    <p class="hint">Opens the Roblox share link in a new tab.</p>
+  </div>
+
+  <script>
+    const ROBLOX_LINK = "https://www.roblox.com/share?code=09d67be220f13f44a7e77c57961162d8&type=Server";
+
+    const btn = document.getElementById('trialBtn');
+    const clicksLabel = document.getElementById('clicks');
+    let clicks = 0;
+
+    btn.addEventListener('click', async () => {
+      clicks += 1;
+      clicksLabel.textContent = clicks;
+
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(ROBLOX_LINK);
+        } else {
+          const ta = document.createElement('textarea');
+          ta.value = ROBLOX_LINK;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          ta.remove();
+        }
+      } catch(e){}
+
+      try {
+        window.open(ROBLOX_LINK, '_blank');
+      } catch(e){}
+    });
+  </script>
+</body>
+</html>
